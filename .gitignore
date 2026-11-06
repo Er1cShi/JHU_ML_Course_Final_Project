@@ -3,3 +3,8 @@ __pycache__/
 .venv/
 data/
 .DS_Store
+report/*.aux
+report/*.log
+report/*.bbl
+report/*.blg
+report/*.out
