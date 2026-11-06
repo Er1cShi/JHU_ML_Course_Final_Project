@@ -1,0 +1,19 @@
+<section id="validation" data-transition="fade" style="background:#14213D;color:#F4F5F7;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;color:#F0A64A;letter-spacing:2px;text-transform:uppercase">A practical finding</p>
+<h2 style="font-size:72px;font-weight:700;line-height:1.1;color:#F4F5F7">Reweight the validation set too</h2>
+</div>
+<p style="font-size:36px;line-height:1.4;color:#BCC6D6;width:1500px">If the regularization strength is chosen on an unweighted validation set, model selection quietly undoes the reweighting: for α &gt; 1 it picks the strongest penalty every time.</p>
+<div style="display:flex;gap:64px">
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;border-top:2px solid #3A4A6B;padding:32px 0 0 0">
+<p style="font-size:120px;font-weight:700;color:#F0A64A">0.059</p>
+<p style="font-size:30px;color:#BCC6D6">largest gap to theory, unweighted validation (n = 8000)</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;border-top:2px solid #3A4A6B;padding:32px 0 0 0">
+<p style="font-size:120px;font-weight:700;color:#8FB8F0">0.013</p>
+<p style="font-size:30px;color:#BCC6D6">largest gap with the same weights in validation</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8A96AB">7</p>
+<aside>One practical lesson we did not expect. When we picked the regularization strength using a normal, unweighted validation set, the results drifted away from theory. The validation set still looks like the training environment, so for alpha above one it always chose the strongest regularization, which partly undoes the reweighting. The largest gap to theory was 6 points. Using the same weights in the validation loss fixes it: the largest gap drops to about 1 point. So if you reweight training, reweight model selection too.</aside>
+</section>

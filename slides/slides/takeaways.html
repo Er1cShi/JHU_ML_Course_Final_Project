@@ -1,0 +1,22 @@
+<section id="takeaways" data-transition="fade" style="background:#14213D;color:#F4F5F7;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;color:#F0A64A;letter-spacing:2px;text-transform:uppercase">What we learned</p>
+<h2 style="font-size:72px;font-weight:700;line-height:1.1;color:#F4F5F7">Takeaways</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:0">
+<div style="display:flex;gap:40px;align-items:baseline;border-top:2px solid #3A4A6B;padding:28px 0">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:36px;color:#F0A64A;width:80px">1</p>
+<p style="font-size:38px;line-height:1.35;color:#F4F5F7;flex:1">Using a reliable shortcut is optimal for the training data. More data from the same place cannot fix it.</p>
+</div>
+<div style="display:flex;gap:40px;align-items:baseline;border-top:2px solid #3A4A6B;padding:28px 0">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:36px;color:#F0A64A;width:80px">2</p>
+<p style="font-size:38px;line-height:1.35;color:#F4F5F7;flex:1">Group reweighting is a change of environment, p_α = p − α(p − ½), so its cost and benefit are predictable.</p>
+</div>
+<div style="display:flex;gap:40px;align-items:baseline;border-top:2px solid #3A4A6B;padding:28px 0">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:36px;color:#F0A64A;width:80px">3</p>
+<p style="font-size:38px;line-height:1.35;color:#F4F5F7;flex:1">Standard balancing (α = 1) is best only when the test correlation is 0.5. Reweight validation the same way.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8A96AB">Limits: known group labels, binary attribute, one image construction · Thank you, questions?</p>
+<aside>Three takeaways. First, relying on a reliable shortcut is the optimal thing to do for the training data, so more data from the same place cannot fix it. Second, group reweighting works because it changes the environment, and in our setting that change is linear in the reweighting strength, so cost and benefit can be computed in advance. Third, the standard choice of fully balancing is only optimal if you expect the shortcut to carry no information at test time; and if you reweight, reweight your validation too. Limits: we assume group labels are known and the attribute is binary, and we tested one image construction. Thank you, happy to take questions.</aside>
+</section>

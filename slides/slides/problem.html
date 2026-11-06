@@ -1,0 +1,16 @@
+<section id="problem" data-transition="fade" style="background:#FBFBF8;color:#14213D;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;color:#2459A8;letter-spacing:2px;text-transform:uppercase">The problem</p>
+<h2 style="font-size:64px;font-weight:700;line-height:1.1">A model learns the corner marker, not the digit</h2>
+</div>
+<div style="display:flex;gap:64px;align-items:center;flex:1">
+<img src="/_blob/8360919220b447aee0048941b20fa425" alt="MNIST zeros and ones with a dark or light 4x4 square in the top-left corner, grouped by label and marker" style="width:900px;height:680px;object-fit:contain;background:#FFFFFF;border:1px solid #E1E4EA;border-radius:16px">
+<div style="flex:1;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:32px;line-height:1.4;color:#4A5568">In training, a dark corner square means “1” <b style="color:#14213D">95%</b> of the time. The digit itself is right only <b style="color:#14213D">75%</b> of the time (we flipped 25% of labels).</p>
+<p style="font-size:32px;line-height:1.4;color:#4A5568">A CNN trained normally follows the square on <b style="color:#14213D">100%</b> of test images. When the square flips, accuracy drops to <b style="color:#B85A1E">10%</b>.</p>
+<p style="font-size:32px;line-height:1.4;color:#14213D"><b>This is shortcut learning.</b> Can we predict how much it hurts, and how much a fix helps?</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B7280">2</p>
+<aside>Here is the problem in one picture. These are real MNIST zeros and ones. We painted a small square in the top-left corner: dark usually means one, light usually means zero. In training the square matches the label 95 percent of the time, while the digit only matches 75 percent, because we flipped a quarter of the labels on purpose. A normal CNN takes the easy route: it reads the square, not the digit. When we flip the square at test time, it gets only 10 percent right. That is shortcut learning. Our question: can we predict this failure, and predict how well the standard fixes work?</aside>
+</section>

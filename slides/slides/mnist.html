@@ -1,0 +1,21 @@
+<section id="mnist" data-transition="fade" style="background:#FBFBF8;color:#14213D;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;color:#2459A8;letter-spacing:2px;text-transform:uppercase">Result 4 · real images</p>
+<h2 style="font-size:64px;font-weight:700;line-height:1.1">The same rule predicts when a CNN switches cues</h2>
+</div>
+<div style="display:flex;gap:48px;flex:1;align-items:center">
+<img src="/_blob/ec193ff1f6a3055ada42b8aef2f16e24" alt="MNIST accuracy against reweighting strength alpha in three environments, with predicted step changes at alpha 0.44 and 1.56" style="width:1000px;height:600px;object-fit:contain;background:#FFFFFF;border:1px solid #E1E4EA;border-radius:16px">
+<div style="flex:1;display:flex;flex-direction:column;gap:24px">
+<p style="font-size:28px;line-height:1.4;color:#4A5568">Prediction from p_α: the CNN follows</p>
+<table style="font-size:26px;color:#14213D">
+<tr><th style="width:45%">α</th><th style="width:55%">follows</th></tr>
+<tr><td>&lt; 0.44</td><td>marker</td></tr>
+<tr><td>0.44 – 1.56</td><td>digit</td></tr>
+<tr><td>&gt; 1.56</td><td>inverted marker</td></tr>
+</table>
+<p style="font-size:28px;line-height:1.4;color:#4A5568">Measured: ERM 0.95 / 0.49 / 0.10, balanced ≈ 0.75 everywhere, α* reversed 0.88. Near the switch points the change is gradual.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B7280">8</p>
+<aside>Does this carry over to images and neural networks? Back to MNIST. Because the CNN reads the digit almost perfectly, the problem reduces to two yes-or-no cues: the digit, right 75 percent of the time, and the marker, right with probability p. The model should follow whichever is more reliable in the reweighted training data. Using the same p-alpha formula, we predicted it switches from the marker to the digit at alpha 0.44, and to the inverted marker at 1.56. The dashed lines are the prediction, the dots are the CNN averaged over 3 seeds. Far from the switch points the match is close; near them the change is gradual rather than a sharp jump, which we report honestly as a limitation.</aside>
+</section>

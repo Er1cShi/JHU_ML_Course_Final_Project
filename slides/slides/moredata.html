@@ -1,0 +1,10 @@
+<section id="moredata" data-transition="fade" style="background:#FBFBF8;color:#14213D;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;color:#2459A8;letter-spacing:2px;text-transform:uppercase">Result 2 · experiment</p>
+<h2 style="font-size:64px;font-weight:700;line-height:1.1">16× more data, same failure</h2>
+</div>
+<img src="/_blob/fcafad7ae121e2a66d5cf57c9c642243" alt="Test accuracy against training size 500, 2000, 8000 in three environments; ERM lines are flat and match the dashed theory lines" style="width:1664px;height:520px;object-fit:contain;background:#FFFFFF;border:1px solid #E1E4EA;border-radius:16px">
+<p style="font-size:32px;line-height:1.4;color:#4A5568">ERM at p = 0.95, reversed environment: <b style="color:#14213D">0.371 → 0.392 → 0.386</b> for n = 500 → 2000 → 8000. Theory says 0.394. Across all 81 settings, measurement and theory differ by <b style="color:#14213D">0.002</b> on average.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B7280">5</p>
+<aside>Then we checked it with experiments: 270 logistic regression models over three correlations, three sample sizes and ten seeds. Each panel is one test environment. The lines are flat. Going from 500 to 8000 samples, accuracy in the reversed environment stays around 39 percent, exactly where the theory puts it. More data only makes the model more confidently wrong, because it converges to a predictor that relies on the shortcut. Orange is group-balanced reweighting, which stays at 84 percent everywhere. Over all 81 settings, theory and measurement differ by 0.2 percentage points on average.</aside>
+</section>

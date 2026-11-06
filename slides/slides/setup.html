@@ -1,0 +1,22 @@
+<section id="setup" data-transition="fade" style="background:#FBFBF8;color:#14213D;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;color:#2459A8;letter-spacing:2px;text-transform:uppercase">A controlled setting</p>
+<h2 style="font-size:64px;font-weight:700;line-height:1.1">Two features: one stable, one shortcut</h2>
+</div>
+<div style="display:flex;gap:64px;align-items:center;flex:1">
+<div style="width:620px;display:flex;flex-direction:column;gap:28px">
+<div style="background:#EEF1F5;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:30px;color:#2459A8">Xs = Y + noise(1.0)</p>
+<p style="font-size:26px;color:#4A5568">Stable: same in every environment, but noisy</p>
+</div>
+<div style="background:#EEF1F5;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:30px;color:#B85A1E">Xz = A + noise(0.2)</p>
+<p style="font-size:26px;color:#4A5568">Shortcut: A = Y with probability p, else −Y</p>
+</div>
+<p style="font-size:26px;line-height:1.4;color:#4A5568">Train at p = 0.6, 0.8, 0.95. Test at p, 0.5 and 0.1 (reversed). 10 seeds, n = 500 to 8000.</p>
+</div>
+<img src="/_blob/c0bc14935463ab5d35a68f15c175c4fd" alt="Scatter plots of the synthetic data in the training environment and the reversed test environment, with the decision boundary of the trained model" style="flex:1;height:620px;object-fit:contain;background:#FFFFFF;border:1px solid #E1E4EA;border-radius:16px">
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B7280">3</p>
+<aside>To study this exactly, we built a small synthetic version. Each example has two features. Xs is the stable one: it always relates to the label the same way, but it is noisy. Xz is the shortcut: almost noiseless, but its relation to the label depends on p, which changes between environments. On the left plot, training data: the shortcut separates the classes almost perfectly. On the right, the reversed test environment: the black boundary learned in training now sends most points to the wrong side. Because we wrote down the distribution, we can compute the optimal classifier and its accuracy exactly.</aside>
+</section>

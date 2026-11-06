@@ -1,0 +1,25 @@
+<section id="pipeline" data-transition="fade" style="background:#EEF1F5;color:#14213D;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:24px;color:#2459A8;letter-spacing:2px;text-transform:uppercase">How we built it</p>
+<h2 style="font-size:64px;font-weight:700;line-height:1.1">Every number is checked against theory</h2>
+</div>
+<div style="display:flex;gap:48px;flex:1;align-items:center">
+<img src="/_blob/e829f5d88c55145362eb52c2e7857998" alt="Code architecture: data generator, models, metrics and experiment runner feed CSV results; a theory module feeds predictions; an MNIST script feeds its own results; analysis produces all figures" style="width:1100px;height:560px;object-fit:contain;background:#FFFFFF;border:1px solid #E1E4EA;border-radius:16px">
+<div style="flex:1;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:4px">
+<p style="font-size:56px;font-weight:700;color:#14213D">1,254</p>
+<p style="font-size:26px;color:#4A5568">final trained models across E1–E4</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:4px">
+<p style="font-size:56px;font-weight:700;color:#14213D">~6 min</p>
+<p style="font-size:26px;color:#4A5568">to reproduce everything on a laptop CPU</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:4px">
+<p style="font-size:56px;font-weight:700;color:#14213D">fixed seeds</p>
+<p style="font-size:26px;color:#4A5568">code and results on GitHub</p>
+</div>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B7280">9</p>
+<aside>Briefly, how the code is organised. A data generator, the models and metrics feed an experiment runner that writes CSV files. A separate theory module computes the predictions, and the analysis script puts the two side by side for every figure. The MNIST experiment is its own script with a small CNN. Everything uses fixed seeds and reproduces in about six minutes on a laptop CPU. The code and all results are on GitHub.</aside>
+</section>
