@@ -47,245 +47,223 @@ const W = 13.333, M = 0.6;
 pres.defineSlideMaster({
   title: "Content", background: { color: "FFFFFF" },
   objects: [
-    { placeholder: { options: { name: "eyebrow", type: "body", x: M, y: 0.45, w: W - 2 * M, h: 0.35, fontSize: 13, bold: true, color: C.accent5, charSpacing: 2, margin: 0 }, text: "" } },
-    { placeholder: { options: { name: "title", type: "title", x: M, y: 0.8, w: W - 2 * M, h: 0.85, fontSize: 34, bold: true, color: C.text1, margin: 0, valign: "top", align: "left" }, text: "" } },
+    { placeholder: { options: { name: "eyebrow", type: "body", x: M, y: 0.45, w: W - 2 * M, h: 0.4, fontSize: 16, bold: true, color: C.accent5, charSpacing: 2, margin: 0 }, text: "" } },
+    { placeholder: { options: { name: "title", type: "title", x: M, y: 0.85, w: W - 2 * M, h: 0.95, fontSize: 40, bold: true, color: C.text1, margin: 0, valign: "top", align: "left" }, text: "" } },
   ],
-  slideNumber: { x: W - M - 0.6, y: 6.95, w: 0.6, h: 0.3, fontSize: 11, color: C.accent6, align: "right" },
+  slideNumber: { x: W - M - 0.6, y: 6.95, w: 0.6, h: 0.3, fontSize: 14, color: C.accent6, align: "right" },
 });
 pres.defineSlideMaster({
   title: "Dark", background: { color: THEME.colors.dk1 },
   objects: [
-    { placeholder: { options: { name: "eyebrow", type: "body", x: M, y: 0.45, w: W - 2 * M, h: 0.35, fontSize: 13, bold: true, color: "F0A64A", charSpacing: 2, margin: 0 }, text: "" } },
-    { placeholder: { options: { name: "title", type: "title", x: M, y: 0.8, w: W - 2 * M, h: 0.85, fontSize: 34, bold: true, color: C.background1, margin: 0, valign: "top", align: "left" }, text: "" } },
+    { placeholder: { options: { name: "eyebrow", type: "body", x: M, y: 0.45, w: W - 2 * M, h: 0.4, fontSize: 16, bold: true, color: "F0A64A", charSpacing: 2, margin: 0 }, text: "" } },
+    { placeholder: { options: { name: "title", type: "title", x: M, y: 0.85, w: W - 2 * M, h: 0.95, fontSize: 40, bold: true, color: C.background1, margin: 0, valign: "top", align: "left" }, text: "" } },
   ],
-  slideNumber: { x: W - M - 0.6, y: 6.95, w: 0.6, h: 0.3, fontSize: 11, color: C.accent6, align: "right" },
+  slideNumber: { x: W - M - 0.6, y: 6.95, w: 0.6, h: 0.3, fontSize: 14, color: C.accent6, align: "right" },
 });
 pres.defineSlideMaster({ title: "Cover", background: { color: THEME.colors.dk1 } });
 
-const tb = (s, text, o) => s.addText(text, Object.assign({ isTextBox: true, margin: 0, fontSize: 16, color: C.text1, valign: "top" }, o));
+const tb = (s, text, o) => s.addText(text, Object.assign({ isTextBox: true, margin: 0, fontSize: 22, color: C.text1, valign: "top" }, o));
 const card = (s, x, y, w, h, fill, name) => s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.12, fill: { color: fill }, line: { color: fill }, objectName: name });
 const head = (s, eyebrow, title) => { s.addText(eyebrow, { placeholder: "eyebrow" }); s.addText(title, { placeholder: "title" }); };
 
 const axisFont = { catAxisLabelFontFace: "+mn-lt", valAxisLabelFontFace: "+mn-lt", legendFontFace: "+mn-lt", titleFontFace: "+mn-lt",
-  catAxisLabelColor: HEX.muted, valAxisLabelColor: HEX.muted, catAxisLabelFontSize: 11, valAxisLabelFontSize: 11,
-  catAxisTitleColor: HEX.muted, valAxisTitleColor: HEX.muted, catAxisTitleFontSize: 11, valAxisTitleFontSize: 11,
-  valGridLine: { color: HEX.grid, size: 0.75 }, catGridLine: { style: "none" }, legendFontSize: 11, legendColor: HEX.muted,
-  titleColor: HEX.ink, titleFontSize: 13 };
+  catAxisLabelColor: HEX.muted, valAxisLabelColor: HEX.muted, catAxisLabelFontSize: 16, valAxisLabelFontSize: 16,
+  catAxisTitleColor: HEX.muted, valAxisTitleColor: HEX.muted, catAxisTitleFontSize: 16, valAxisTitleFontSize: 16,
+  valGridLine: { color: HEX.grid, size: 0.75 }, catGridLine: { style: "none" }, legendFontSize: 16, legendColor: HEX.muted,
+  titleColor: HEX.ink, titleFontSize: 18 };
+// ===================== MAIN TALK (7 slides, ~6 min) =====================
+const lineChart = (s, groups, o) => s.addChart(groups, Object.assign({}, axisFont, o));
+const fmtA = (arr) => arr.map((a) => (Math.abs(a - 1.8889) < 1e-3 ? "1.89" : String(a)));
 
-// =========== 1 cover ===========
-pres.addSection({ title: "Intro" });
-let s = pres.addSlide({ masterName: "Cover", sectionTitle: "Intro" });
-tb(s, "JHU MACHINE LEARNING · FINAL PROJECT · FALL 2026", { x: M + 0.2, y: 0.9, w: 8, h: 0.4, fontSize: 14, bold: true, color: "F0A64A", charSpacing: 2 });
-tb(s, "When more data\ndoes not help", { x: M + 0.2, y: 2.2, w: 7.6, h: 2.0, fontSize: 48, bold: true, color: C.background1, fontFace: "+mj-lt" });
-tb(s, "A closed-form account of shortcut learning and reweighting", { x: M + 0.2, y: 4.3, w: 7.2, h: 0.9, fontSize: 22, color: "BCC6D6" });
-tb(s, "[Author 1] · [Author 2] · [Author 3]", { x: M + 0.2, y: 6.3, w: 7, h: 0.4, fontSize: 16, color: "BCC6D6" });
-// four MNIST samples, one per group, as a visual
+// 1 cover
+pres.addSection({ title: "Talk" });
+let s = pres.addSlide({ masterName: "Cover", sectionTitle: "Talk" });
+tb(s, "JHU MACHINE LEARNING · FINAL PROJECT · FALL 2026", { x: M + 0.2, y: 0.9, w: 8, h: 0.4, fontSize: 16, bold: true, color: "F0A64A", charSpacing: 2 });
+tb(s, "When more data\ndoes not help", { x: M + 0.2, y: 2.0, w: 7.6, h: 2.2, fontSize: 54, bold: true, color: C.background1, fontFace: "+mj-lt" });
+tb(s, "A closed-form account of shortcut learning and reweighting", { x: M + 0.2, y: 4.35, w: 7.2, h: 1.0, fontSize: 26, color: "BCC6D6" });
+tb(s, "[Author 1] · [Author 2] · [Author 3]", { x: M + 0.2, y: 6.2, w: 7.4, h: 0.5, fontSize: 20, color: "BCC6D6" });
 [["y1_a1_1.png", "label 1 · dark"], ["y-1_a-1_2.png", "label 0 · light"], ["y1_a-1_0.png", "label 1 · light"], ["y-1_a1_0.png", "label 0 · dark"]].forEach((t, i) => {
-  const x = 8.75 + (i % 2) * 2.0, y = 1.9 + Math.floor(i / 2) * 2.25;
-  s.addImage({ path: TILE(t[0]), x, y, w: 1.7, h: 1.7, altText: "MNIST digit with corner marker", objectName: "cover sample " + (i + 1) });
-  tb(s, t[1], { x, y: y + 1.75, w: 1.7, h: 0.3, fontSize: 11, color: "8A96AB", align: "center" });
+  const x = 8.6 + (i % 2) * 2.15, y = 1.7 + Math.floor(i / 2) * 2.45;
+  s.addImage({ path: TILE(t[0]), x, y, w: 1.85, h: 1.85, altText: "MNIST digit with corner marker", objectName: "cover sample " + (i + 1) });
+  tb(s, t[1], { x, y: y + 1.92, w: 1.85, h: 0.35, fontSize: 14, color: "8A96AB", align: "center" });
 });
-s.addNotes("Hi everyone. Our project is about shortcut learning: why a model that looks great on its test set can fall apart when one cue in the data changes. The short version of our answer: collecting more data does not fix it, reweighting does, and in our setting we can compute exactly how much it helps before running anything.");
+s.addNotes("(about 15 s) Hi everyone. Our project asks why a model that looks great on its test set can fail when one cue in the data changes, and whether we can predict how much a fix helps.");
 
-// =========== 2 problem ===========
-s = pres.addSlide({ masterName: "Content", sectionTitle: "Intro" });
-head(s, "THE PROBLEM", "A model learns the corner marker, not the digit");
-const groups = [["y1_a1", "Label 1 · dark marker", "majority"], ["y1_a-1", "Label 1 · light marker", "minority"], ["y-1_a-1", "Label 0 · light marker", "majority"], ["y-1_a1", "Label 0 · dark marker", "minority"]];
+// 2 motivation
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Talk" });
+head(s, "MOTIVATION", "A CNN learns the corner square, not the digit");
+const groups = [["y1_a1", "Label 1 · dark", "common"], ["y1_a-1", "Label 1 · light", "rare"], ["y-1_a-1", "Label 0 · light", "common"], ["y-1_a1", "Label 0 · dark", "rare"]];
 groups.forEach((g, gi) => {
-  const y = 1.95 + gi * 1.22;
-  tb(s, g[1], { x: M, y: y + 0.18, w: 2.2, h: 0.4, fontSize: 14, bold: true });
-  tb(s, g[2] + " group", { x: M, y: y + 0.55, w: 2.2, h: 0.35, fontSize: 12, color: g[2] === "majority" ? C.accent5 : C.accent4 });
-  for (let k = 0; k < 3; k++) {
-    const x = M + 2.3 + k * 1.15;
-    s.addImage({ path: TILE(`${g[0]}_${k}.png`), x, y, w: 1.05, h: 1.05, altText: g[1], objectName: `${g[0]} sample ${k + 1}` });
-    if (D.noisy[g[0]][k]) tb(s, "flipped label", { x, y: y + 0.82, w: 1.05, h: 0.22, fontSize: 9, bold: true, color: "FFFFFF", align: "center", fill: { color: HEX.amber } });
+  const y = 2.05 + gi * 1.2;
+  tb(s, g[1], { x: M, y: y + 0.2, w: 2.3, h: 0.45, fontSize: 18, bold: true });
+  tb(s, g[2] + " in training", { x: M, y: y + 0.62, w: 2.3, h: 0.4, fontSize: 15, color: g[2] === "common" ? C.accent5 : C.accent4 });
+  for (let k = 0; k < 2; k++) {
+    const x = M + 2.4 + k * 1.2;
+    s.addImage({ path: TILE(`${g[0]}_${k}.png`), x, y, w: 1.1, h: 1.1, altText: g[1], objectName: `${g[0]} sample ${k + 1}` });
+    if (D.noisy[g[0]][k]) tb(s, "flipped", { x, y: y + 0.84, w: 1.1, h: 0.26, fontSize: 12, bold: true, color: "FFFFFF", align: "center", fill: { color: HEX.amber } });
   }
 });
-card(s, 7.15, 1.95, 5.58, 4.75, "EEF1F5", "problem card");
-tb(s, [
-  { text: "In training, a dark corner square means \"1\" ", options: {} },
-  { text: "95%", options: { bold: true, color: C.accent4 } },
-  { text: " of the time. The digit itself is right only ", options: {} },
-  { text: "75%", options: { bold: true, color: C.accent5 } },
-  { text: " of the time (we flipped 25% of labels).", options: {} },
-], { x: 7.5, y: 2.25, w: 4.9, h: 1.3, fontSize: 17 });
-tb(s, "A CNN trained normally follows the square. When the square flips, accuracy drops to", { x: 7.5, y: 3.65, w: 4.9, h: 0.9, fontSize: 17 });
-tb(s, "10%", { x: 7.5, y: 4.5, w: 4.9, h: 1.0, fontSize: 60, bold: true, color: C.accent4 });
-tb(s, [{ text: "This is shortcut learning. ", options: { bold: true } }, { text: "Can we predict how much it hurts, and how much a fix helps?" }], { x: 7.5, y: 5.6, w: 4.9, h: 0.9, fontSize: 16 });
-s.addNotes("Here is the problem in one picture. These are real MNIST zeros and ones. We painted a small square in the top-left corner: dark usually means one, light usually means zero. In training the square matches the label 95 percent of the time, while the digit only matches 75 percent, because we flipped a quarter of the labels on purpose. A normal CNN takes the easy route: it reads the square, not the digit. When we flip the square at test time, it gets only 10 percent right. That is shortcut learning. Our question: can we predict this failure, and predict how well the standard fixes work?");
+card(s, 5.75, 2.0, 6.98, 4.75, "EEF1F5", "motivation card");
+tb(s, [{ text: "Training: the dark square means \"1\" " }, { text: "95%", options: { bold: true, color: C.accent4 } }, { text: " of the time; the digit is right only " }, { text: "75%", options: { bold: true, color: C.accent5 } }, { text: "." }],
+  { x: 6.1, y: 2.3, w: 6.3, h: 1.2, fontSize: 24 });
+tb(s, "Flip the square at test time:", { x: 6.1, y: 3.6, w: 6.3, h: 0.5, fontSize: 24 });
+tb(s, [{ text: "95% → 10%", options: { bold: true, color: C.accent4 } }], { x: 6.1, y: 4.1, w: 6.3, h: 1.1, fontSize: 60 });
+tb(s, [{ text: "Question: ", options: { bold: true } }, { text: "can we predict this failure, and how much a fix helps, before training?" }], { x: 6.1, y: 5.45, w: 6.3, h: 1.1, fontSize: 22 });
+s.addNotes("(about 50 s) These are real MNIST zeros and ones. We painted a small square in the corner. In training, a dark square means one 95 percent of the time, while the digit only matches 75 percent, because we flipped a quarter of the labels on purpose. A normal CNN takes the easy cue: it reads the square. When the square flips at test time, accuracy falls from 95 to 10 percent. This is shortcut learning. Our question: can we predict this failure, and how much a fix helps, before training anything?");
 
-// =========== 3 setup ===========
-pres.addSection({ title: "Theory and experiments" });
-s = pres.addSlide({ masterName: "Content", sectionTitle: "Theory and experiments" });
-head(s, "A CONTROLLED SETTING", "Two features: one stable, one shortcut");
-card(s, M, 2.0, 5.0, 1.55, "E3ECFA", "stable card");
-tb(s, "Xs = Y + noise(1.0)", { x: M + 0.3, y: 2.2, w: 4.4, h: 0.5, fontSize: 22, bold: true, color: C.accent5, fontFace: "Courier New" });
-tb(s, "Stable: same in every environment, but noisy", { x: M + 0.3, y: 2.8, w: 4.4, h: 0.6, fontSize: 15, color: C.text2 });
-card(s, M, 3.8, 5.0, 1.55, "FBEFDC", "shortcut card");
-tb(s, "Xz = A + noise(0.2)", { x: M + 0.3, y: 4.0, w: 4.4, h: 0.5, fontSize: 22, bold: true, color: C.accent4, fontFace: "Courier New" });
-tb(s, "Shortcut: A = Y with probability p, else −Y", { x: M + 0.3, y: 4.6, w: 4.4, h: 0.6, fontSize: 15, color: C.text2 });
-tb(s, "Train at p = 0.6, 0.8, 0.95. Test at p, 0.5 and 0.1 (reversed). 10 seeds, n = 500 to 8000.", { x: M, y: 5.6, w: 5.0, h: 0.9, fontSize: 15, color: C.text2 });
-function scatter(env, title, x) {
-  const pts = D.scatter[env];
-  const X = pts.map((p) => p[0]);
-  const pos = pts.map((p) => (p[2] > 0 ? p[1] : null));
-  const neg = pts.map((p) => (p[2] < 0 ? p[1] : null));
-  s.addChart(pres.charts.SCATTER, [{ name: "Xs", values: X }, { name: "Y = +1", values: pos }, { name: "Y = −1", values: neg }], Object.assign({}, axisFont, {
-    x, y: 1.95, w: 3.55, h: 4.6, lineSize: 0, lineDataSymbol: "circle", lineDataSymbolSize: 5,
-    chartColors: [HEX.erm, HEX.gb], showTitle: true, title, showLegend: true, legendPos: "b",
-    showCatAxisTitle: true, catAxisTitle: "Xs (stable)", showValAxisTitle: true, valAxisTitle: "Xz (shortcut)",
-    valAxisMinVal: -2, valAxisMaxVal: 2, catAxisMinVal: -4, catAxisMaxVal: 4, objectName: "scatter " + env,
-  }));
-}
-scatter("train", "Training env (p = 0.95)", 5.85);
-scatter("rev", "Reversed test env (p = 0.1)", 9.3);
-s.addNotes("To study this exactly, we built a small synthetic version. Each example has two features. Xs is the stable one: it always relates to the label the same way, but it is noisy. Xz is the shortcut: almost noiseless, but its relation to the label depends on p, which changes between environments. In the training data the shortcut separates the classes almost perfectly: blue points sit at the top, orange at the bottom. In the reversed test environment it is the other way round, so a model that reads Xz gets most points wrong. Because we wrote down the distribution, we can compute the optimal classifier and its accuracy exactly.");
-
-// =========== 4 bayes ===========
-s = pres.addSlide({ masterName: "Content", sectionTitle: "Theory and experiments" });
-head(s, "RESULT 1 · THEORY", "The best model for the training data uses the shortcut");
-card(s, M, 1.95, W - 2 * M, 1.9, "EEF1F5", "formula card");
-tb(s, [{ text: "log-odds ≈ 2·xs + " }, { text: "log(p / (1−p))", options: { color: C.accent4, bold: true } }, { text: "·sign(xz)" }], { x: M + 0.4, y: 2.2, w: 11.3, h: 0.6, fontSize: 26, fontFace: "Courier New" });
-tb(s, "Acc(p, q) = q·Φ(1 + c/2) + (1−q)·Φ(1 − c/2),   c = log(p / (1−p))", { x: M + 0.4, y: 2.95, w: 11.3, h: 0.6, fontSize: 20, fontFace: "Courier New", color: C.text2 });
-const stats = [["0.958", "predicted accuracy in the training environment, p = 0.95", C.accent5], ["0.394", "predicted accuracy when the shortcut reverses (q = 0.1)", C.accent4], ["0.841", "stable feature only, in every environment", C.accent3]];
-stats.forEach((st, i) => {
+// 3 method + key math insight
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Talk" });
+head(s, "SETUP AND KEY MATH", "The optimal model uses the shortcut");
+card(s, M, 2.0, 5.9, 1.3, "E3ECFA", "stable card");
+tb(s, "Xs = Y + N(0, 1)", { x: M + 0.3, y: 2.12, w: 5.4, h: 0.55, fontSize: 26, bold: true, color: C.accent5, fontFace: "Courier New" });
+tb(s, "stable, but noisy", { x: M + 0.3, y: 2.72, w: 5.4, h: 0.45, fontSize: 20, color: C.text2 });
+card(s, 6.83, 2.0, 5.9, 1.3, "FBEFDC", "shortcut card");
+tb(s, "Xz = A + 0.2·N(0, 1)", { x: 7.13, y: 2.12, w: 5.4, h: 0.55, fontSize: 26, bold: true, color: C.accent4, fontFace: "Courier New" });
+tb(s, "A = Y with prob. p, else −Y", { x: 7.13, y: 2.72, w: 5.4, h: 0.45, fontSize: 20, color: C.text2 });
+tb(s, "Bayes-optimal log-odds in the training environment:", { x: M, y: 3.6, w: 12, h: 0.5, fontSize: 22, color: C.text2 });
+tb(s, [{ text: "2·xs + " }, { text: "log(p/(1−p))", options: { color: C.accent4, bold: true } }, { text: "·sign(xz)" }], { x: M, y: 4.15, w: 12, h: 0.75, fontSize: 36, fontFace: "Courier New" });
+[["0.958", "accuracy, train env (p = 0.95)", C.accent5], ["0.394", "when the shortcut reverses", C.accent4], ["no n", "sample size never appears", C.text1]].forEach((st, i) => {
   const x = M + i * 4.1;
-  tb(s, st[0], { x, y: 4.3, w: 3.7, h: 1.1, fontSize: 60, bold: true, color: st[2] });
-  tb(s, st[1], { x, y: 5.45, w: 3.6, h: 0.9, fontSize: 15, color: C.text2 });
+  tb(s, st[0], { x, y: 5.15, w: 3.8, h: 0.95, fontSize: 52, bold: true, color: st[2] });
+  tb(s, st[1], { x, y: 6.1, w: 3.8, h: 0.5, fontSize: 20, color: C.text2 });
 });
-tb(s, "None of these numbers depends on the sample size n.", { x: M, y: 6.45, w: 10, h: 0.4, fontSize: 15, italic: true, color: C.text2 });
-s.addNotes("First result. We wrote down the Bayes-optimal classifier for the training environment. It puts weight 2 on the stable feature and log p over 1 minus p on the shortcut, which is 2.94 when p is 0.95. So relying on the shortcut is not a bug in training: it is the optimal answer for that data. From this we get a closed-form accuracy in any test environment q. At p equals 0.95 it predicts 95.8 percent in distribution, but only 39.4 percent when the shortcut reverses. Using only the stable feature gives 84.1 percent everywhere. Important point: none of these numbers depends on the sample size n.");
+s.addNotes("(about 60 s) To make this exact, we use a two-feature model. Xs is stable but noisy. Xz is a nearly noiseless shortcut that agrees with the label with probability p, and p changes between environments. Writing down the Bayes-optimal classifier for training gives weight log p over 1 minus p on the shortcut. So using the shortcut is not a bug: it is optimal for the training data. This gives closed-form accuracy in any test environment: 95.8 percent in training, 39.4 percent when the shortcut reverses. And the sample size n never appears in the formula.");
 
-// =========== 5 more data ===========
-s = pres.addSlide({ masterName: "Content", sectionTitle: "Theory and experiments" });
-head(s, "RESULT 2 · EXPERIMENT", "16× more data, same failure");
-const envs = [["id", "In-distribution (q = 0.95)"], ["no_corr", "No correlation (q = 0.5)"], ["reversed", "Reversed (q = 0.1)"]];
-envs.forEach((e, i) => {
-  const md = D.moredata[e[0]];
-  const labels = ["500", "2000", "8000"];
-  s.addChart([
-    { type: pres.charts.LINE, data: [
-      { name: "ERM", labels, values: md.erm }, { name: "Group balanced", labels, values: md.group_balanced }, { name: "Stable only", labels, values: md.stable_only }],
-      options: { chartColors: [HEX.erm, HEX.gb, HEX.stable], lineSize: 2.5, lineDataSymbol: "circle", lineDataSymbolSize: 8 } },
-    { type: pres.charts.LINE, data: [{ name: "Theory (ERM)", labels, values: md.theory }], options: { chartColors: [HEX.theory], lineDash: "dash", lineSize: 2, lineDataSymbol: "none" } },
-  ], Object.assign({}, axisFont, {
-    x: M + i * 4.1, y: 1.9, w: 3.9, h: 3.9, showTitle: true, title: e[1], showLegend: true, legendPos: "b",
-    valAxisMinVal: 0.3, valAxisMaxVal: 1.0, valAxisMajorUnit: 0.1, valAxisLabelFormatCode: "0.0",
-    showCatAxisTitle: true, catAxisTitle: "training size n", objectName: "accuracy vs n " + e[0],
-  }));
+// 4 result: more data
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Talk" });
+head(s, "RESULT 1", "16× more data, same failure");
+{
+  const md = D.moredata.reversed, labels = ["500", "2000", "8000"];
+  lineChart(s, [
+    { type: pres.charts.LINE, data: [{ name: "ERM", labels, values: md.erm }, { name: "Group balanced", labels, values: md.group_balanced }, { name: "Stable feature only", labels, values: md.stable_only }],
+      options: { chartColors: [HEX.erm, HEX.gb, HEX.stable], lineSize: 3, lineDataSymbol: "circle", lineDataSymbolSize: 11 } },
+    { type: pres.charts.LINE, data: [{ name: "Theory (ERM)", labels, values: md.theory }], options: { chartColors: [HEX.theory], lineDash: "dash", lineSize: 2.5, lineDataSymbol: "none" } },
+  ], { x: M, y: 1.95, w: 7.4, h: 4.9, showTitle: true, title: "Accuracy when the shortcut reverses (p = 0.95)", showLegend: true, legendPos: "b",
+    valAxisMinVal: 0.2, valAxisMaxVal: 1.0, valAxisMajorUnit: 0.2, valAxisLabelFormatCode: "0.0", showCatAxisTitle: true, catAxisTitle: "training size n", objectName: "reversed accuracy vs n" });
+}
+tb(s, "ERM, n = 500 → 8000", { x: 8.5, y: 2.1, w: 4.3, h: 0.5, fontSize: 20, color: C.text2 });
+tb(s, "0.37 → 0.39", { x: 8.5, y: 2.6, w: 4.3, h: 0.9, fontSize: 48, bold: true, color: C.accent4 });
+tb(s, "theory: 0.394", { x: 8.5, y: 3.5, w: 4.3, h: 0.5, fontSize: 20, color: C.text2 });
+tb(s, "0.002", { x: 8.5, y: 4.45, w: 4.3, h: 0.9, fontSize: 48, bold: true, color: C.accent5 });
+tb(s, "mean gap to theory over 81 settings (270 models)", { x: 8.5, y: 5.35, w: 4.3, h: 0.9, fontSize: 20, color: C.text2 });
+s.addNotes("(about 45 s) We checked this with 270 logistic-regression models. This is the reversed test environment. Going from 500 to 8000 samples, ERM stays near 39 percent, right on the dashed theory line. More data only makes the model more confidently wrong. Group balancing and the stable-feature model stay at 84 percent. Over all 81 settings, theory and experiment differ by 0.2 points on average.");
+
+// 5 main contribution
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Talk" });
+head(s, "RESULT 2 · OUR MAIN CONTRIBUTION", "Reweighting is a change of environment");
+tb(s, "Group weights:", { x: M, y: 2.0, w: 5.2, h: 0.45, fontSize: 20, color: C.text2 });
+tb(s, "w = (1−α) + α·n/(4n_g)", { x: M, y: 2.45, w: 5.3, h: 0.55, fontSize: 24, fontFace: "Courier New" });
+tb(s, "α = 0: ERM,  α = 1: group balanced", { x: M, y: 3.0, w: 5.3, h: 0.45, fontSize: 18, color: C.text2 });
+card(s, M, 3.6, 5.3, 1.0, "E3ECFA", "p alpha formula");
+tb(s, "p_α = p − α(p − ½)", { x: M + 0.25, y: 3.78, w: 4.9, h: 0.65, fontSize: 32, bold: true, color: C.accent5, fontFace: "Courier New" });
+tb(s, [{ text: "Best for a known test env q:\n" }, { text: "α* = (p−q)/(p−½)", options: { bold: true } }, { text: ", can exceed 1" }], { x: M, y: 4.8, w: 5.3, h: 0.95, fontSize: 21 });
+tb(s, [{ text: "Reversed env: α = 1 → 0.84,  α* = 1.89 → " }, { text: "0.93", options: { bold: true, color: C.accent5 } }], { x: M, y: 5.9, w: 5.3, h: 0.9, fontSize: 21, color: C.text2 });
+{
+  const fr = D.frontier, al = fmtA(fr.alpha);
+  lineChart(s, [
+    { type: pres.charts.LINE, data: [{ name: "In-distribution", labels: al, values: fr.id }, { name: "Reversed", labels: al, values: fr.reversed }], options: { chartColors: [HEX.erm, HEX.amber], lineSize: 0, lineDataSymbol: "circle", lineDataSymbolSize: 13 } },
+    { type: pres.charts.LINE, data: [{ name: "Theory", labels: al, values: fr.id_th }, { name: "Theory ", labels: al, values: fr.reversed_th }], options: { chartColors: [HEX.theory, "C9A46A"], lineDash: "dash", lineSize: 2.5, lineDataSymbol: "none" } },
+  ], { x: 6.2, y: 1.95, w: 6.55, h: 4.95, showTitle: true, title: "Dots: experiment · dashes: theory (p = 0.95)", showLegend: true, legendPos: "b",
+    valAxisMinVal: 0.4, valAxisMaxVal: 1.0, valAxisMajorUnit: 0.1, valAxisLabelFormatCode: "0.0", showCatAxisTitle: true, catAxisTitle: "α", objectName: "alpha tradeoff chart" });
+}
+s.addNotes("(about 75 s) This is our main contribution. The standard fix reweights the four label-attribute groups so they count equally. We interpolate with alpha: zero is ordinary training, one is full balancing. Key observation: the total weight stays one, so the reweighted data is exactly another environment, with correlation p minus alpha times p minus one half, linear in alpha. Plugging this into our accuracy formula gives the whole trade-off curve in closed form; the dots are experiments landing on the dashes. It also gives the best alpha for a known test environment, and it can be larger than one. If you expect the shortcut to reverse, you should over-balance: 93 percent instead of 84.");
+
+// 6 MNIST
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Talk" });
+head(s, "RESULT 3 · REAL IMAGES", "The formula predicts when a CNN switches");
+{
+  const mn = D.mnist, ml = fmtA(mn.alpha);
+  lineChart(s, [
+    { type: pres.charts.LINE, data: [{ name: "In-distribution", labels: ml, values: mn.id }, { name: "Reversed", labels: ml, values: mn.reversed }], options: { chartColors: [HEX.erm, HEX.amber], lineSize: 0, lineDataSymbol: "circle", lineDataSymbolSize: 13 } },
+    { type: pres.charts.LINE, data: [{ name: "Predicted", labels: ml, values: mn.id_th }, { name: "Predicted ", labels: ml, values: mn.reversed_th }], options: { chartColors: [HEX.theory, "C9A46A"], lineDash: "dash", lineSize: 2.5, lineDataSymbol: "none" } },
+  ], { x: M, y: 1.95, w: 7.3, h: 4.95, showTitle: true, title: "MNIST 0/1, small CNN, mean of 3 seeds", showLegend: true, legendPos: "b",
+    valAxisMinVal: 0, valAxisMaxVal: 1.0, valAxisMajorUnit: 0.2, valAxisLabelFormatCode: "0.0", showCatAxisTitle: true, catAxisTitle: "α", objectName: "mnist alpha chart" });
+}
+tb(s, "Two cues: digit (75%) vs square (p_α). Predicted:", { x: 8.3, y: 2.0, w: 4.45, h: 0.95, fontSize: 20, color: C.text2 });
+s.addTable([
+  [{ text: "α < 0.44", options: {} }, { text: "square", options: { color: HEX.amber, bold: true } }],
+  ["0.44 – 1.56", { text: "digit", options: { color: HEX.navy, bold: true } }],
+  ["α > 1.56", { text: "flipped square", options: { color: HEX.amber, bold: true } }],
+], { x: 8.3, y: 3.05, w: 4.45, colW: [1.85, 2.6], fontSize: 20, fontFace: "+mn-lt", color: HEX.ink, border: { type: "solid", pt: 0.75, color: HEX.grid }, rowH: 0.55, objectName: "switch table" });
+tb(s, "Far from the switch points the CNN matches; near them the change is gradual.", { x: 8.3, y: 5.0, w: 4.45, h: 1.4, fontSize: 20 });
+s.addNotes("(about 50 s) Does it carry over to images and neural networks? The CNN reads the digit almost perfectly, so the problem reduces to two cues: the digit, right 75 percent of the time, and the square, right with probability p alpha. The model should follow whichever is more reliable. The same formula predicts it switches to the digit at alpha 0.44 and to the flipped square at 1.56. Far from those points the CNN matches the prediction; near them the switch is gradual, not a sharp jump.");
+
+// 7 takeaways + open questions
+s = pres.addSlide({ masterName: "Dark", sectionTitle: "Talk" });
+head(s, "TAKEAWAYS", "What we found, and what is open");
+["Using the shortcut is optimal for the training data, so more data cannot fix it.",
+ "Reweighting = a new environment, p_α = p − α(p − ½): its cost and benefit are predictable.",
+ "Surprise: reweight the validation set too, or model selection undoes the reweighting."].forEach((t, i) => {
+  const y = 2.0 + i * 1.05;
+  s.addShape(pres.shapes.OVAL, { x: M, y: y + 0.12, w: 0.6, h: 0.6, fill: { color: "F0A64A" }, line: { color: "F0A64A" }, objectName: "number " + (i + 1) });
+  tb(s, String(i + 1), { x: M, y: y + 0.12, w: 0.6, h: 0.6, fontSize: 22, bold: true, color: C.text1, align: "center", valign: "middle" });
+  tb(s, t, { x: M + 0.95, y, w: 11.2, h: 0.85, fontSize: 24, color: C.background1, valign: "middle" });
 });
-tb(s, [{ text: "ERM at p = 0.95, reversed environment: " }, { text: "0.371 → 0.392 → 0.386", options: { bold: true, color: C.accent4 } }, { text: " for n = 500 → 2000 → 8000. Theory says 0.394. Across all 81 settings, measurement and theory differ by " }, { text: "0.002", options: { bold: true } }, { text: " on average." }],
-  { x: M, y: 6.0, w: 11.6, h: 0.8, fontSize: 16, color: C.text2 });
-s.addNotes("Then we checked it with experiments: 270 logistic regression models over three correlations, three sample sizes and ten seeds. Each chart is one test environment at p equals 0.95. The lines are flat. Going from 500 to 8000 samples, accuracy in the reversed environment stays around 39 percent, exactly where the dashed theory line puts it. More data only makes the model more confidently wrong, because it converges to a predictor that relies on the shortcut. Orange is group-balanced reweighting and green uses the stable feature only; both stay at 84 percent everywhere. Over all 81 settings, theory and measurement differ by 0.2 percentage points on average.");
+tb(s, "Open questions", { x: M, y: 5.3, w: 6, h: 0.5, fontSize: 22, bold: true, color: "F0A64A" });
+tb(s, "Group labels unknown? Non-binary or several shortcuts? Why is the CNN switch gradual?", { x: M, y: 5.8, w: 12, h: 0.6, fontSize: 22, color: "BCC6D6" });
+tb(s, "Thank you, questions and suggestions welcome", { x: M, y: 6.6, w: 9, h: 0.45, fontSize: 18, color: "8A96AB" });
+s.addNotes("(about 40 s) Three takeaways. Relying on a reliable shortcut is optimal for the training data, so more data cannot fix it. Reweighting works because it creates a new environment, so its cost and benefit can be computed in advance. And one surprise: if you reweight training but pick hyperparameters on an unweighted validation set, model selection quietly undoes the reweighting. Open questions: what if group labels are unknown, what about several or non-binary shortcuts, and why the CNN switches gradually. We would love your suggestions. Thank you.");
 
-// =========== 6 reweight ===========
-pres.addSection({ title: "Reweighting" });
-s = pres.addSlide({ masterName: "Content", sectionTitle: "Reweighting" });
-head(s, "RESULT 3 · OUR MAIN CONTRIBUTION", "Reweighting is a change of environment");
-tb(s, "Weight each (label, attribute) group by", { x: M, y: 1.95, w: 5.2, h: 0.4, fontSize: 16, color: C.text2 });
-card(s, M, 2.4, 5.2, 0.75, "EEF1F5", "weight formula");
-tb(s, "w = (1−α) + α·n / (4·n_g)", { x: M + 0.25, y: 2.55, w: 4.8, h: 0.45, fontSize: 20, fontFace: "Courier New" });
-tb(s, "The weighted data is exactly a new environment:", { x: M, y: 3.35, w: 5.2, h: 0.4, fontSize: 16, color: C.text2 });
-card(s, M, 3.8, 5.2, 0.85, "E3ECFA", "p alpha formula");
-tb(s, "p_α = p − α·(p − ½)", { x: M + 0.25, y: 3.95, w: 4.8, h: 0.55, fontSize: 26, bold: true, color: C.accent5, fontFace: "Courier New" });
-tb(s, [{ text: "Best choice for a known test env q: " }, { text: "α* = (p−q)/(p−½)", options: { bold: true } }, { text: ", which can exceed 1." }], { x: M, y: 4.9, w: 5.2, h: 0.8, fontSize: 16 });
-tb(s, [{ text: "p = 0.95: balancing (α = 1) gets 0.84 when reversed; α* = 1.89 gets " }, { text: "0.926", options: { bold: true, color: C.accent5 } }, { text: " (theory 0.928)." }], { x: M, y: 5.8, w: 5.2, h: 0.8, fontSize: 16, color: C.text2 });
-const fr = D.frontier, al = fr.alpha.map((a) => (Math.abs(a - 1.8889) < 1e-3 ? "1.89" : String(a)));
-s.addChart([
-  { type: pres.charts.LINE, data: [{ name: "Measured, in-distribution", labels: al, values: fr.id }, { name: "Measured, reversed", labels: al, values: fr.reversed }], options: { chartColors: [HEX.erm, HEX.amber], lineSize: 0, lineDataSymbol: "circle", lineDataSymbolSize: 10 } },
-  { type: pres.charts.LINE, data: [{ name: "Theory, in-distribution", labels: al, values: fr.id_th }, { name: "Theory, reversed", labels: al, values: fr.reversed_th }], options: { chartColors: [HEX.theory, "C9A46A"], lineDash: "dash", lineSize: 2, lineDataSymbol: "none" } },
-], Object.assign({}, axisFont, {
-  x: 6.3, y: 1.9, w: 6.45, h: 4.85, showTitle: true, title: "Accuracy vs reweighting strength α (p = 0.95, n = 8000)",
-  showLegend: true, legendPos: "b", valAxisMinVal: 0.4, valAxisMaxVal: 1.0, valAxisMajorUnit: 0.1, valAxisLabelFormatCode: "0.0",
-  showCatAxisTitle: true, catAxisTitle: "α  (0 = ERM, 1 = group balanced)", objectName: "alpha tradeoff chart",
-}));
-s.addNotes("This is our main contribution. The standard fix is to reweight the four groups defined by label and attribute so they count equally. We interpolate between normal training at alpha zero and full balancing at alpha one. The key observation: the total weight stays one, so the reweighted data is exactly another environment, with correlation p minus alpha times p minus one half. It is linear in alpha. That gives the whole trade-off in closed form: the dashed lines are theory and the dots are experiments landing on them. As alpha grows, in-distribution accuracy falls and reversed accuracy rises. It also tells us the best alpha for a known test environment, and that it can be bigger than one: if you expect the shortcut to reverse, you should over-balance. At p equals 0.95 that reaches 92.6 percent, versus 84 for standard balancing.");
-
-// =========== 7 validation ===========
-s = pres.addSlide({ masterName: "Dark", sectionTitle: "Reweighting" });
-head(s, "A PRACTICAL FINDING", "Reweight the validation set too");
-tb(s, "If the regularization strength is chosen on an unweighted validation set, model selection quietly undoes the reweighting: for α > 1 it picks the strongest penalty every time.", { x: M, y: 2.0, w: 10.5, h: 1.3, fontSize: 20, color: "BCC6D6" });
+// ===================== BACKUP (for Q&A) =====================
+pres.addSection({ title: "Backup" });
+s = pres.addSlide({ masterName: "Dark", sectionTitle: "Backup" });
+head(s, "BACKUP · VALIDATION", "Reweight the validation set too");
+tb(s, "Choosing the regularization strength on an unweighted validation set picks the strongest penalty for every α > 1, partly undoing the reweighting.", { x: M, y: 2.0, w: 11.5, h: 1.3, fontSize: 24, color: "BCC6D6" });
 [["0.059", "largest gap to theory, unweighted validation (n = 8000)", "F0A64A"], ["0.013", "largest gap with the same weights in validation", "8FB8F0"]].forEach((v, i) => {
   const x = M + i * 6.0;
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 3.7, w: 5.6, h: 2.8, rectRadius: 0.12, fill: { color: "1F2E52" }, line: { color: "1F2E52" }, objectName: "stat card " + (i + 1) });
   tb(s, v[0], { x: x + 0.4, y: 3.95, w: 4.8, h: 1.4, fontSize: 80, bold: true, color: v[2] });
-  tb(s, v[1], { x: x + 0.4, y: 5.45, w: 4.8, h: 0.8, fontSize: 17, color: "BCC6D6" });
+  tb(s, v[1], { x: x + 0.4, y: 5.4, w: 4.8, h: 0.9, fontSize: 20, color: "BCC6D6" });
 });
-s.addNotes("One practical lesson we did not expect. When we picked the regularization strength using a normal, unweighted validation set, the results drifted away from theory. The validation set still looks like the training environment, so for alpha above one it always chose the strongest regularization, which partly undoes the reweighting. The largest gap to theory was 6 points. Using the same weights in the validation loss fixes it: the largest gap drops to about 1 point. So if you reweight training, reweight model selection too.");
+s.addNotes("Backup for Q&A: details of the validation finding.");
 
-// =========== 8 mnist ===========
-pres.addSection({ title: "Real images" });
-s = pres.addSlide({ masterName: "Content", sectionTitle: "Real images" });
-head(s, "RESULT 4 · REAL IMAGES", "The same rule predicts when a CNN switches cues");
-const mn = D.mnist, ml = mn.alpha.map((a) => (Math.abs(a - 1.8889) < 1e-3 ? "1.89" : String(a)));
-s.addChart([
-  { type: pres.charts.LINE, data: [{ name: "CNN, in-dist. (q = 0.95)", labels: ml, values: mn.id }, { name: "CNN, no corr. (q = 0.5)", labels: ml, values: mn.no_corr }, { name: "CNN, reversed (q = 0.1)", labels: ml, values: mn.reversed }], options: { chartColors: [HEX.erm, HEX.stable, HEX.amber], lineSize: 0, lineDataSymbol: "circle", lineDataSymbolSize: 10 } },
-  { type: pres.charts.LINE, data: [{ name: "Predicted, in-dist.", labels: ml, values: mn.id_th }, { name: "Predicted, reversed", labels: ml, values: mn.reversed_th }], options: { chartColors: [HEX.theory, "C9A46A"], lineDash: "dash", lineSize: 2, lineDataSymbol: "none" } },
-], Object.assign({}, axisFont, {
-  x: M, y: 1.9, w: 7.6, h: 4.9, showTitle: true, title: "MNIST 0/1 accuracy vs α (mean of 3 seeds)", showLegend: true, legendPos: "b",
-  valAxisMinVal: 0, valAxisMaxVal: 1.0, valAxisMajorUnit: 0.2, valAxisLabelFormatCode: "0.0", showCatAxisTitle: true, catAxisTitle: "α", objectName: "mnist alpha chart",
-}));
-tb(s, "Prediction from p_α: the CNN follows", { x: 8.6, y: 1.95, w: 4.1, h: 0.4, fontSize: 16, color: C.text2 });
-s.addTable([
-  [{ text: "α", options: { bold: true, color: HEX.muted } }, { text: "follows", options: { bold: true, color: HEX.muted } }],
-  ["< 0.44", { text: "marker", options: { color: HEX.amber, bold: true } }],
-  ["0.44 – 1.56", { text: "digit", options: { color: HEX.navy, bold: true } }],
-  ["> 1.56", { text: "inverted marker", options: { color: HEX.amber, bold: true } }],
-], { x: 8.6, y: 2.45, w: 4.1, colW: [1.6, 2.5], fontSize: 16, fontFace: "+mn-lt", color: HEX.ink, border: { type: "solid", pt: 0.75, color: HEX.grid }, rowH: 0.45, objectName: "switch table" });
-tb(s, "Measured: ERM 0.95 / 0.49 / 0.10; balanced ≈ 0.75 everywhere; α* reversed 0.88 (predicted 0.90).", { x: 8.6, y: 4.6, w: 4.1, h: 1.1, fontSize: 15 });
-tb(s, "Near the switch points the change is gradual, not a sharp jump.", { x: 8.6, y: 5.8, w: 4.1, h: 0.8, fontSize: 15, italic: true, color: C.text2 });
-s.addNotes("Does this carry over to images and neural networks? Back to MNIST. Because the CNN reads the digit almost perfectly, the problem reduces to two yes-or-no cues: the digit, right 75 percent of the time, and the marker, right with probability p. The model should follow whichever is more reliable in the reweighted training data. Using the same p-alpha formula, we predicted it switches from the marker to the digit at alpha 0.44, and to the inverted marker at 1.56. The dashed lines are the prediction, the dots are the CNN averaged over 3 seeds. Far from the switch points the match is close; near them the change is gradual rather than a sharp jump, which we report honestly as a limitation.");
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Backup" });
+head(s, "BACKUP · DATA", "What the synthetic data looks like");
+function scatter(env, title, x) {
+  const pts = D.scatter[env];
+  s.addChart(pres.charts.SCATTER, [{ name: "Xs", values: pts.map((p) => p[0]) }, { name: "Y = +1", values: pts.map((p) => (p[2] > 0 ? p[1] : null)) }, { name: "Y = −1", values: pts.map((p) => (p[2] < 0 ? p[1] : null)) }], Object.assign({}, axisFont, {
+    x, y: 1.95, w: 5.9, h: 4.95, lineSize: 0, lineDataSymbol: "circle", lineDataSymbolSize: 7, chartColors: [HEX.erm, HEX.gb], showTitle: true, title, showLegend: true, legendPos: "b",
+    showCatAxisTitle: true, catAxisTitle: "Xs (stable)", showValAxisTitle: true, valAxisTitle: "Xz (shortcut)", valAxisMinVal: -2, valAxisMaxVal: 2, catAxisMinVal: -4, catAxisMaxVal: 4, catAxisLabelPos: "low", valAxisLabelPos: "low", objectName: "scatter " + env }));
+}
+scatter("train", "Training env (p = 0.95)", M);
+scatter("rev", "Reversed test env (p = 0.1)", 6.83);
+s.addNotes("Backup: in training the shortcut Xz separates the classes almost perfectly; in the reversed environment it points the wrong way.");
 
-// =========== 9 pipeline (native shapes) ===========
-pres.addSection({ title: "Wrap-up" });
-s = pres.addSlide({ masterName: "Content", sectionTitle: "Wrap-up" });
-head(s, "HOW WE BUILT IT", "Every number is checked against theory");
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Backup" });
+head(s, "BACKUP · ALL ENVIRONMENTS", "Accuracy vs n in three test environments (p = 0.95)");
+[["id", "In-dist. (q = 0.95)"], ["no_corr", "No corr. (q = 0.5)"], ["reversed", "Reversed (q = 0.1)"]].forEach((e, i) => {
+  const md = D.moredata[e[0]], labels = ["500", "2000", "8000"];
+  lineChart(s, [
+    { type: pres.charts.LINE, data: [{ name: "ERM", labels, values: md.erm }, { name: "GB", labels, values: md.group_balanced }, { name: "Stable", labels, values: md.stable_only }], options: { chartColors: [HEX.erm, HEX.gb, HEX.stable], lineSize: 3, lineDataSymbol: "circle", lineDataSymbolSize: 9 } },
+    { type: pres.charts.LINE, data: [{ name: "Theory", labels, values: md.theory }], options: { chartColors: [HEX.theory], lineDash: "dash", lineSize: 2.5, lineDataSymbol: "none" } },
+  ], { x: M + i * 4.1, y: 1.95, w: 3.95, h: 4.95, showTitle: true, title: e[1], showLegend: true, legendPos: "b",
+    valAxisMinVal: 0.3, valAxisMaxVal: 1.0, valAxisMajorUnit: 0.1, valAxisLabelFormatCode: "0.0", objectName: "accuracy vs n " + e[0] });
+});
+s.addNotes("Backup: all three test environments; ERM lines are flat in n and sit on the theory lines.");
+
+s = pres.addSlide({ masterName: "Content", sectionTitle: "Backup" });
+head(s, "BACKUP · CODE", "Every number is checked against theory");
 const box = (x, y, w, h, title, sub, fill, line, name) => {
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.08, fill: { color: fill }, line: { color: line, width: 1.25 }, objectName: name });
-  tb(s, [{ text: title, options: { bold: true, fontFace: "Courier New", fontSize: 13, breakLine: true } }, { text: sub, options: { fontSize: 11, color: HEX.muted } }], { x: x + 0.12, y: y + 0.08, w: w - 0.24, h: h - 0.16, valign: "middle", align: "center" });
+  tb(s, [{ text: title, options: { bold: true, fontFace: "Courier New", fontSize: 15, breakLine: true } }, { text: sub, options: { fontSize: 13, color: HEX.muted } }], { x: x + 0.08, y: y + 0.06, w: w - 0.16, h: h - 0.12, valign: "middle", align: "center" });
 };
 const arrow = (x1, y1, x2, y2) => s.addShape(pres.shapes.LINE, { x: Math.min(x1, x2), y: Math.min(y1, y2), w: Math.abs(x2 - x1) || 0.001, h: Math.abs(y2 - y1) || 0.001, flipV: y2 < y1, line: { color: "8A96AB", width: 1.5, endArrowType: "triangle" } });
-const B = { fill: "E3ECFA", line: "2459A8" }, A = { fill: "FBEFDC", line: "B86A0B" }, G = { fill: "E1F2E7", line: "2E7D4F" }, N = { fill: "F4F5F7", line: "8A96AB" };
-// column 1 inputs
-box(0.6, 2.0, 1.9, 0.85, "data.py", "synthetic generator", B.fill, B.line, "data.py");
-box(0.6, 3.1, 1.9, 0.85, "models.py", "ERM / GB / α weights", B.fill, B.line, "models.py");
-box(0.6, 4.2, 1.9, 0.85, "metrics.py", "acc, worst group", B.fill, B.line, "metrics.py");
-// column 2
-box(3.0, 3.1, 2.3, 0.85, "run_experiments.py", "E1–E3, 10 seeds", B.fill, B.line, "run_experiments.py");
-box(3.0, 1.85, 2.3, 0.85, "theory.py", "closed-form predictions", A.fill, A.line, "theory.py");
-box(3.0, 4.75, 2.3, 0.85, "mnist_shortcut.py", "E4, small CNN", A.fill, A.line, "mnist_shortcut.py");
-// column 3 csv
-box(5.8, 3.1, 1.75, 0.85, "results/*.csv", "per-model rows", N.fill, N.line, "results csv");
-box(5.8, 4.75, 1.75, 0.85, "e4_mnist.csv", "per-model rows", N.fill, N.line, "e4 csv");
-// column 4 analysis
-box(8.05, 3.1, 1.75, 0.85, "analysis.py", "summary, bootstrap", G.fill, G.line, "analysis.py");
-box(8.05, 4.75, 1.75, 0.85, "figures/", "fig0 – fig6", G.fill, G.line, "figures");
-arrow(2.5, 2.42, 3.0, 3.35); arrow(2.5, 3.52, 3.0, 3.52); arrow(2.5, 4.62, 3.0, 3.7);
-arrow(5.3, 3.52, 5.8, 3.52); arrow(5.3, 5.17, 5.8, 5.17);
-arrow(7.55, 3.52, 8.05, 3.52); arrow(7.55, 5.17, 8.05, 3.75); arrow(8.92, 3.95, 8.92, 4.75);
-arrow(4.15, 2.7, 4.15, 3.1); arrow(5.3, 2.27, 8.6, 3.1);
-// stats column
-[["1,254", "final trained models across E1–E4"], ["~6 min", "to reproduce everything on a laptop CPU"], ["fixed seeds", "code and results on GitHub"]].forEach((t, i) => {
-  tb(s, t[0], { x: 10.2, y: 1.95 + i * 1.6, w: 2.7, h: 0.7, fontSize: 36, bold: true });
-  tb(s, t[1], { x: 10.2, y: 2.65 + i * 1.6, w: 2.7, h: 0.7, fontSize: 14, color: C.text2 });
-});
-tb(s, "Blue: shared core · Amber: theory and MNIST · Green: analysis output", { x: M, y: 6.3, w: 9, h: 0.35, fontSize: 12, color: C.text2 });
-s.addNotes("Briefly, how the code is organised. A data generator, the models and metrics feed an experiment runner that writes CSV files. A separate theory module computes the predictions, and the analysis script puts the two side by side for every figure. The MNIST experiment is its own script with a small CNN. Everything uses fixed seeds and reproduces in about six minutes on a laptop CPU. The code and all results are on GitHub.");
-
-// =========== 10 takeaways ===========
-s = pres.addSlide({ masterName: "Dark", sectionTitle: "Wrap-up" });
-head(s, "WHAT WE LEARNED", "Takeaways");
-["Using a reliable shortcut is optimal for the training data. More data from the same place cannot fix it.",
- "Group reweighting is a change of environment, p_α = p − α(p − ½), so its cost and benefit are predictable.",
- "Standard balancing (α = 1) is best only when the test correlation is 0.5. Reweight validation the same way."].forEach((t, i) => {
-  const y = 2.0 + i * 1.35;
-  s.addShape(pres.shapes.OVAL, { x: M, y: y + 0.1, w: 0.7, h: 0.7, fill: { color: "F0A64A" }, line: { color: "F0A64A" }, objectName: "number " + (i + 1) });
-  tb(s, String(i + 1), { x: M, y: y + 0.1, w: 0.7, h: 0.7, fontSize: 24, bold: true, color: C.text1, align: "center", valign: "middle" });
-  tb(s, t, { x: M + 1.1, y, w: 10.8, h: 1.0, fontSize: 22, color: C.background1, valign: "middle" });
-});
-tb(s, "Limits: known group labels, binary attribute, one image construction · Thank you, questions?", { x: M, y: 6.4, w: 11, h: 0.4, fontSize: 14, color: "8A96AB" });
-s.addNotes("Three takeaways. First, relying on a reliable shortcut is the optimal thing to do for the training data, so more data from the same place cannot fix it. Second, group reweighting works because it changes the environment, and in our setting that change is linear in the reweighting strength, so cost and benefit can be computed in advance. Third, the standard choice of fully balancing is only optimal if you expect the shortcut to carry no information at test time; and if you reweight, reweight your validation too. Limits: we assume group labels are known and the attribute is binary, and we tested one image construction. Thank you, happy to take questions.");
-
+const B = ["E3ECFA", "2459A8"], A = ["FBEFDC", "B86A0B"], G = ["E1F2E7", "2E7D4F"], N = ["F4F5F7", "8A96AB"];
+box(0.6, 2.0, 2.1, 0.95, "data.py", "data generator", ...B, "data.py");
+box(0.6, 3.25, 2.1, 0.95, "models.py", "ERM / GB / α", ...B, "models.py");
+box(0.6, 4.5, 2.1, 0.95, "metrics.py", "acc, worst group", ...B, "metrics.py");
+box(3.2, 3.25, 2.6, 0.95, "run_experiments.py", "E1–E3, 10 seeds", ...B, "run_experiments.py");
+box(3.2, 2.0, 2.6, 0.95, "theory.py", "closed form", ...A, "theory.py");
+box(3.2, 5.15, 2.6, 0.95, "mnist_shortcut.py", "E4, small CNN", ...A, "mnist_shortcut.py");
+box(6.3, 3.25, 2.0, 0.95, "results/*.csv", "per-model rows", ...N, "results csv");
+box(6.3, 5.15, 2.0, 0.95, "e4_mnist.csv", "per-model rows", ...N, "e4 csv");
+box(8.8, 3.25, 2.0, 0.95, "analysis.py", "summary", ...G, "analysis.py");
+box(8.8, 5.15, 2.0, 0.95, "figures/", "fig0 – fig6", ...G, "figures");
+arrow(2.7, 2.47, 3.2, 3.5); arrow(2.7, 3.72, 3.2, 3.72); arrow(2.7, 4.97, 3.2, 3.95);
+arrow(5.8, 3.72, 6.3, 3.72); arrow(5.8, 5.62, 6.3, 5.62); arrow(8.3, 3.72, 8.8, 3.72); arrow(8.3, 5.62, 8.8, 3.95);
+arrow(9.8, 4.2, 9.8, 5.15); arrow(4.5, 2.95, 4.5, 3.25); arrow(5.8, 2.47, 9.3, 3.25);
+tb(s, "1,254 models · ~6 min on a laptop CPU · fixed seeds · code on GitHub", { x: M, y: 6.45, w: 12, h: 0.45, fontSize: 18, color: C.text2 });
+s.addNotes("Backup: code architecture.");
 (async () => {
   await pres.writeFile({ fileName: OUT });
   await applyTheme(OUT, THEME);
