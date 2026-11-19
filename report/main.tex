@@ -162,6 +162,8 @@ up to an additive error at most $\Phi(-1/\sigma)=\Phi(-5)<3\times10^{-7}$. Numer
 exact Bayes rule differ in accuracy by less than $10^{-4}$ in all our settings.
 \end{proposition}
 
+The idea of the proof: given $Y$, the features are independent, so the log-odds splits into a term $2x_s$ from $x_s\sim N(Y,1)$ and a term $g_p(x_z)$ from the two-component mixture for $x_z$; since $\sigma=0.2$, the mixture components barely overlap and $g_p(x_z)\approx c_p\,\sign(x_z)$. Conditioning on whether $A=Y$ then gives \eqref{eq:acc} as a mixture of two Gaussian tail probabilities.
+
 Two consequences follow. (i) The optimal predictor of the training environment uses the shortcut,
 with weight $c_p$ (2.94 at $p=0.95$) compared with weight 2 on $x_s$; this is optimal, not a failure
 of optimization. (ii) $\Acc(p,q)$ is linear in $q$ and does not depend on $n$. Any consistent
